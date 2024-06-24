@@ -1,8 +1,13 @@
 import { Application } from 'express';
+import { currentUserRoutes } from '@gateway/routes/current-user';
+import { authMiddleware } from '@gateway/services/auth-middleware';
 import { healthRoutes } from '@gateway/routes/health';
+import { authRoutes } from '@gateway/routes/auth';
 
-// const BASE_PATH = '/api/gateway/v1';
+const BASE_PATH = '/api/gateway/v1';
 
 export const appRoutes = (app: Application) => {
   app.use('', healthRoutes.routes());
+  app.use(BASE_PATH, authRoutes.routes());
+  app.use(BASE_PATH, authMiddleware.verifyUser, currentUserRoutes.routes());
 };

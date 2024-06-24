@@ -5,10 +5,9 @@ COPY package.json ./
 COPY tsconfig.json ./
 COPY .npmrc ./
 COPY src ./src
-# COPY tools ./tools
 RUN ls -a
-RUN npm install -g nodemon
-RUN npm install -d
+RUN npm install -d && npm install -g nodemon
+
 EXPOSE 4000
 
 CMD [ "npm", "run", "dev" ]
